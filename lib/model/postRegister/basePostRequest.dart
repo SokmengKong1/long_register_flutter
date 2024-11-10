@@ -1,10 +1,10 @@
 class BasePostRequest {
   BasePostRequest({
-      this.limit = 10,
-      this.page = 1,
-      this.userId= 1,
-      this.status = "ACT",
-      this.id = 0,});
+    this.limit = 10,
+    this.page = 1,
+    this.userId= 1,
+    this.status = "ACT",
+    this.id = 0,});
 
   BasePostRequest.fromJson(dynamic json) {
     limit = json['limit'];

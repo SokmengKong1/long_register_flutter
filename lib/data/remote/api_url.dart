@@ -15,5 +15,8 @@ class ApiUrl{
   static const String postCategory  = "$baseUrlPostApp/api/app/category/list";
   static const String postRefreshToken  = "$baseUrlPostApp/api/oauth/refresh";
   static const String postCreateCategory  = "$baseUrlPostApp/api/app/category/create";
+  static const String getAllPostPath = "$baseUrlPostApp/api/app/post/list";
+  static const String createPostPath = "$baseUrlPostApp/api/app/post/create";
+  static const String imageViewPath = "$baseUrlPostApp/api/public/view/image?filename=";
 
 }

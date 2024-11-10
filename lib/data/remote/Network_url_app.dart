@@ -32,39 +32,6 @@ class NetworkUrlApp implements BaseApiService {
   }
 
   @override
-  // Future postApi(String url, requestBody) async {
-  //   dynamic responseJson;
-  //   var storage = GetStorage();
-  //   var responseStorage = LoginRep.fromJson(storage.remove("USER_KEY"));
-  //   var token= "";
-  //   if(null != responseStorage.refreshToken){
-  //     token = responseStorage.accessToken ?? "";
-  //   }
-  //   var headers = {
-  //     "Connect_type ": "Application/json",
-  //     "Authorization": "Bearer ${token}"
-  //   };
-  //   try {
-  //     var response = await http
-  //         .post(Uri.parse(url),
-  //             headers: headers,
-  //             body: requestBody)
-  //         .timeout(Duration(seconds: 20));
-  //     switch (response.statusCode) {
-  //       case 200:
-  //         responseJson = jsonDecode(response.body);
-  //         break;
-  //       case 500:
-  //         return NoInternetConnectionException();
-  //     }
-  //   } on SocketException {
-  //     throw NoInternetConnectionException();
-  //   } on TimeoutException {
-  //     throw RequestTimeout();
-  //   }
-  //   return responseJson;
-  // }
-
   Future postApi(String url, requestBody) async {
     dynamic responseJson;
     try {
@@ -99,32 +66,6 @@ class NetworkUrlApp implements BaseApiService {
   }
 
   @override
-  // Future loginApi(String url, requestBody) async {
-  //   dynamic responseJson;
-  //
-  //   try {
-  //     var headers = {
-  //       "Connect_type ": "Application/json",
-  //     };
-  //     var response = await http
-  //         .post(Uri.parse(url), headers: headers, body: jsonEncode(requestBody))
-  //         .timeout(Duration(seconds: 20));
-  //     switch (response.statusCode) {
-  //       case 200:
-  //         responseJson = jsonEncode(response.body);
-  //         break;
-  //       case 400:
-  //         throw UnAuthorization();
-  //       case 500:
-  //         throw InternetServerException();
-  //     }
-  //   } on SocketException {
-  //     throw InternetServerException();
-  //   } on RequestTimeout {
-  //     throw RequestTimeout();
-  //   }
-  //   return responseJson;
-  // }
   Future loginApi(String url, requestBody) async {
     dynamic responseJson;
     try {
@@ -153,14 +94,13 @@ class NetworkUrlApp implements BaseApiService {
     } on RequestTimeout {
       throw RequestTimeout();
     }
-    // catch (e) {
-    //   // Handle other types of exceptions
-    //   print('Other error: $e');
-    // }
+    catch (e) {
+      // Handle other types of exceptions
+      print('Other error: $e');
+    }
 
     return responseJson;
   }
-
   @override
   Future register(String url, requestBody) async {
     dynamic responseJson;
@@ -171,6 +111,7 @@ class NetworkUrlApp implements BaseApiService {
       var response = await http
           .post(Uri.parse(url), headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
+
       switch (response.statusCode) {
         case 200:
           responseJson = jsonDecode(response.body);
@@ -185,6 +126,11 @@ class NetworkUrlApp implements BaseApiService {
     } on RequestTimeout {
       throw RequestTimeout();
     }
+    catch (e) {
+      // Handle other types of exceptions
+      print('Other error: $e');
+    }
+
     return responseJson;
   }
 }

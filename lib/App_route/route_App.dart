@@ -1,6 +1,9 @@
+import 'package:add_card_shop/post/root/view/profile_view.dart';
 import 'package:add_card_shop/post/view/login_view.dart';
 import 'package:add_card_shop/post/view/register_o_view.dart';
 import 'package:add_card_shop/post/view/register_view.dart';
+import 'package:add_card_shop/post/view/show/create_post/post_category_formView.dart';
+import 'package:add_card_shop/post/view/show/product_view.dart';
 import 'package:add_card_shop/view/Add_Card/add_Card.dart';
 import 'package:add_card_shop/view/homeScreen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -21,9 +24,11 @@ class Route_App{
   static const String postRoot = '/post/root';
   static const String postLogin = '/post/login';
   static const String postManageCategory = "/post/manage/categories";
-  static const String profile = "/post/manage/categories/profile";
+  static const String profile = "/post/manage/profile";
   static const String register = "/post/login/register";
-  static const String register_O_view = "/post/login/register";
+  static const String productView = "/post/productView";
+  static const String createView = "/post/create";
+  // static const String register_O_view = "/post/login/register";
 
 }
 class routeApp{
@@ -54,9 +59,17 @@ class routeApp{
         name: Route_App.register,
         page: () => RegisterView(),
         transition: Transition.rightToLeft),
-    // GetPage(
-    //     name: Route_App.register_O_view,
-    //     page: () => RegisterOView(),
-    //     transition: Transition.rightToLeft),
+    GetPage(
+        name: Route_App.productView,
+        page: () => ProductView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Route_App.profile,
+        page: () => ProfileView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Route_App.createView,
+        page: () => PostCategoryFormView(),
+        transition: Transition.rightToLeft),
   ];
 }

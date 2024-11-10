@@ -1,7 +1,352 @@
-import 'package:add_card_shop/data/remote/Network_url_app.dart';
+// import 'package:add_card_shop/App_route/route_App.dart';
+// import 'package:add_card_shop/post/view/view_model/register_view_model.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import '../../widget/custom_input_widget.dart';
+//
+// class RegisterView extends StatefulWidget {
+//   @override
+//   _RegisterViewState createState() => _RegisterViewState();
+// }
+//
+// class _RegisterViewState extends State<RegisterView> {
+//   // Define controllers for each input field
+//   final _formKey = GlobalKey<FormState>();
+//   final registerViewModel = Get.put(RegisterViewModel());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Register"),
+//     leading: IconButton(
+//     icon: Icon(Icons.arrow_back),
+//     onPressed: () {
+//     Navigator.pop(context);
+//     },
+//     ),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Form(
+//           key: _formKey,
+//           child: ListView(
+//             children: [
+//               CustomInputWidget(
+//                 controller: registerViewModel.firstNameController.value,
+//                 labelText: "FirstName",
+//                 hintText: "Enter your FirstName",
+//                 prefixIcon: Icon(Icons.person),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'First name is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               // buildTextField("Role", roleController),
+//               CustomInputWidget(
+//                 controller: registerViewModel.lastNameController.value,
+//                 labelText: "LastName",
+//                 hintText: "Enter your LastName",
+//                 prefixIcon: Icon(Icons.person),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Last name is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.usernameController.value,
+//                 labelText: "UserName",
+//                 hintText: "Enter your UserName",
+//                 prefixIcon: Icon(Icons.account_circle),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Username is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.emailController.value,
+//                 labelText: "Email",
+//                 hintText: "Enter your Email",
+//                 prefixIcon: Icon(Icons.email),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Email is required';
+//                   }
+//                   if (!GetUtils.isEmail(value)) {
+//                     return 'Enter a valid email';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.phoneNumberController.value,
+//                 labelText: "PhoneNumber",
+//                 hintText: "Enter your PhoneNumber",
+//                 prefixIcon: Icon(Icons.phone),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Phone number is required';
+//                   }
+//                   if (!GetUtils.isPhoneNumber(value)) {
+//                     return 'Enter a valid phone number';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.passwordController.value,
+//                 labelText: "Password",
+//                 hintText: "Enter your Password",
+//                 prefixIcon: Icon(Icons.lock),
+//                 obscureText: true,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Password is required';
+//                   }
+//                   if (value.length < 6) {
+//                     return 'Password must be at least 6 characters long';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.confirmPasswordController.value,
+//                 labelText: "ConfirmPassword",
+//                 hintText: "Re-enter your password",
+//                 prefixIcon: Icon(Icons.lock),
+//                 obscureText: true,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please confirm your password';
+//                   }
+//                   if (value !=
+//                       registerViewModel.passwordController.value.text) {
+//                     return 'Passwords do not match';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.profileController.value,
+//                 labelText: "Profile",
+//                 hintText: "Enter your Profile",
+//                 prefixIcon: Icon(Icons.person_outline),
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.roleController.value,
+//                 labelText: "Role",
+//                 hintText: "Enter your Role",
+//                 prefixIcon: Icon(Icons.group),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Role is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//
+//               SizedBox(height: 20),
+//               ElevatedButton(
+//                 //onPressed: registerUser,
+//                 onPressed: registerViewModel.onRegister,
+//                 child: InkWell(
+//                     onTap: () {
+//                       Get.toNamed(Route_App.loginView);
+//                       //registerViewModel.register();
+//                     },
+//                     child: Text("Register")),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+// import 'package:add_card_shop/App_route/route_App.dart';
+// import 'package:add_card_shop/post/view/view_model/register_view_model.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import '../../widget/custom_input_widget.dart';
+//
+// class RegisterView extends StatefulWidget {
+//   @override
+//   _RegisterViewState createState() => _RegisterViewState();
+// }
+//
+// class _RegisterViewState extends State<RegisterView> {
+//   // Define controllers for each input field
+//   final _formKey = GlobalKey<FormState>();
+//   final registerViewModel = Get.put(RegisterViewModel());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Register"),
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back),
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//         ),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Form(
+//           key: _formKey,
+//           child: ListView(
+//             children: [
+//               CustomInputWidget(
+//                 controller: registerViewModel.firstNameController.value,
+//                 labelText: "FirstName",
+//                 hintText: "Enter your FirstName",
+//                 prefixIcon: Icon(Icons.person),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'First name is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.lastNameController.value,
+//                 labelText: "LastName",
+//                 hintText: "Enter your LastName",
+//                 prefixIcon: Icon(Icons.person),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Last name is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.usernameController.value,
+//                 labelText: "UserName",
+//                 hintText: "Enter your UserName",
+//                 prefixIcon: Icon(Icons.account_circle),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Username is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.emailController.value,
+//                 labelText: "Email",
+//                 hintText: "Enter your Email",
+//                 prefixIcon: Icon(Icons.email),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Email is required';
+//                   }
+//                   if (!GetUtils.isEmail(value)) {
+//                     return 'Enter a valid email';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.phoneNumberController.value,
+//                 labelText: "PhoneNumber",
+//                 hintText: "Enter your PhoneNumber",
+//                 prefixIcon: Icon(Icons.phone),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Phone number is required';
+//                   }
+//                   if (!GetUtils.isPhoneNumber(value)) {
+//                     return 'Enter a valid phone number';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.passwordController.value,
+//                 labelText: "Password",
+//                 hintText: "Enter your Password",
+//                 prefixIcon: Icon(Icons.lock),
+//                 obscureText: true,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Password is required';
+//                   }
+//                   if (value.length < 6) {
+//                     return 'Password must be at least 6 characters long';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.confirmPasswordController.value,
+//                 labelText: "ConfirmPassword",
+//                 hintText: "Re-enter your password",
+//                 prefixIcon: Icon(Icons.lock),
+//                 obscureText: true,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please confirm your password';
+//                   }
+//                   if (value !=
+//                       registerViewModel.passwordController.value.text) {
+//                     return 'Passwords do not match';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.profileController.value,
+//                 labelText: "Profile",
+//                 hintText: "Enter your Profile",
+//                 prefixIcon: Icon(Icons.person_outline),
+//               ),
+//               CustomInputWidget(
+//                 controller: registerViewModel.roleController.value,
+//                 labelText: "Role",
+//                 hintText: "Enter your Role",
+//                 prefixIcon: Icon(Icons.group),
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Role is required';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               SizedBox(height: 20),
+//               ElevatedButton(
+//                 onPressed: registerViewModel.onRegister,
+//                 child: InkWell(
+//                   // onTap: () {
+//                   //   Get.toNamed(Route_App.loginView);
+//                   //
+//                   // },
+//                   child: Text("Register"),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:add_card_shop/App_route/route_App.dart';
+import 'package:add_card_shop/post/view/view_model/register_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:get/get.dart';
+import '../../widget/custom_input_widget.dart';
 
 class RegisterView extends StatefulWidget {
   @override
@@ -9,64 +354,25 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  // Define controllers for each input field
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-  final TextEditingController profileController = TextEditingController();
-  final TextEditingController roleController = TextEditingController();
+  final registerViewModel = Get.put(RegisterViewModel());
 
-  // Function to send data to the API
-  Future<void> registerUser() async {
-    if (_formKey.currentState!.validate()) {
-      // Replace with your actual API endpoint
-      var url = Uri.parse("http://194.233.91.140:20099/api/oauth/register");
-
-      // Define the request body
-      var requestBody = {
-        "firstName": firstNameController.value.text,
-        "lastName": lastNameController.value.text,
-        "username": usernameController.value.text,
-        "email": emailController.value.text,
-        "phoneNumber": phoneNumberController.value.text,
-        "password": passwordController.value.text,
-        "confirmPassword": confirmPasswordController.value.text,
-        "profile": profileController.value.text,
-        "role": roleController.value.text,
-      };
-
-      // Make the POST request
-      var response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(requestBody),
-      );
-
-      if (response.statusCode == 200) {
-        // Registration successful
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Registration successful")),
-        );
-      } else {
-        // Handle error response
-        var responseBody = json.decode(response.body);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Registration failed: ${responseBody['error']}")),
-        );
-      }
-    }
-  }
+  // Observables for toggling password visibility
+  final RxBool _isPasswordHidden = true.obs;
+  final RxBool _isConfirmPasswordHidden = true.obs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Register"),
+        title: const Text("Register"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -74,19 +380,187 @@ class _RegisterViewState extends State<RegisterView> {
           key: _formKey,
           child: ListView(
             children: [
-              buildTextField("First Name", firstNameController),
-              buildTextField("Last Name", lastNameController),
-              buildTextField("Username", usernameController),
-              buildTextField("Email", emailController),
-              buildTextField("Phone Number", phoneNumberController),
-              buildTextField("Password", passwordController, obscureText: true),
-              buildTextField("Confirm Password", confirmPasswordController, obscureText: true),
-              buildTextField("Profile", profileController),
-              buildTextField("Role", roleController),
-              SizedBox(height: 20),
+              // First Name
+              CustomInputWidget(
+                controller: registerViewModel.firstNameController.value,
+                labelText: "First Name",
+                hintText: "Enter your first name",
+                prefixIcon: const Icon(Icons.person),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'First name is required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Last Name
+              CustomInputWidget(
+                controller: registerViewModel.lastNameController.value,
+                labelText: "Last Name",
+                hintText: "Enter your last name",
+                prefixIcon: const Icon(Icons.person),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Last name is required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Username
+              CustomInputWidget(
+                controller: registerViewModel.usernameController.value,
+                labelText: "Username",
+                hintText: "Enter your username",
+                prefixIcon: const Icon(Icons.account_circle),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Username is required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Email
+              CustomInputWidget(
+                controller: registerViewModel.emailController.value,
+                labelText: "Email",
+                hintText: "Enter your email",
+                prefixIcon: const Icon(Icons.email),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email is required';
+                  }
+                  if (!GetUtils.isEmail(value)) {
+                    return 'Enter a valid email';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Phone Number
+              CustomInputWidget(
+                controller: registerViewModel.phoneNumberController.value,
+                labelText: "Phone Number",
+                hintText: "Enter your phone number",
+                prefixIcon: const Icon(Icons.phone),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Phone number is required';
+                  }
+                  if (!GetUtils.isPhoneNumber(value)) {
+                    return 'Enter a valid phone number';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Password with Show/Hide Toggle
+              Obx(() => CustomInputWidget(
+                controller: registerViewModel.passwordController.value,
+                labelText: "Password",
+                hintText: "Enter your password",
+                prefixIcon: const Icon(Icons.lock),
+                obscureText: _isPasswordHidden.value,
+                suffixIcon: IconButton(
+                  icon: Icon(_isPasswordHidden.value
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    _isPasswordHidden.value = !_isPasswordHidden.value;
+                  },
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password is required';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters long';
+                  }
+                  return null;
+                },
+              )),
+              const SizedBox(height: 16),
+
+              // Confirm Password with Show/Hide Toggle
+              Obx(() => CustomInputWidget(
+                controller: registerViewModel.confirmPasswordController.value,
+                labelText: "Confirm Password",
+                hintText: "Re-enter your password",
+                prefixIcon: const Icon(Icons.lock),
+                obscureText: _isConfirmPasswordHidden.value,
+                suffixIcon: IconButton(
+                  icon: Icon(_isConfirmPasswordHidden.value
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    _isConfirmPasswordHidden.value = !_isConfirmPasswordHidden.value;
+                  },
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please confirm your password';
+                  }
+                  if (value != registerViewModel.passwordController.value.text) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
+              )),
+              const SizedBox(height: 16),
+
+              // Profile
+              CustomInputWidget(
+                controller: registerViewModel.profileController.value,
+                labelText: "Profile",
+                hintText: "Enter your profile",
+                prefixIcon: const Icon(Icons.person_outline),
+              ),
+              const SizedBox(height: 16),
+
+              // Role
+              CustomInputWidget(
+                controller: registerViewModel.roleController.value,
+                labelText: "Role",
+                hintText: "Enter your role",
+                prefixIcon: const Icon(Icons.group),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Role is required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 24),
+
+              // Register Button
               ElevatedButton(
-                onPressed: registerUser,
-                child: Text("Register"),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    registerViewModel.onRegister();
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade800,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Register",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -94,26 +568,4 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
-
-  Widget buildTextField(String label, TextEditingController controller, {bool obscureText = false}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(),
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return '$label cannot be empty';
-          }
-          return null;
-        },
-      ),
-    );
-  }
 }
-
-

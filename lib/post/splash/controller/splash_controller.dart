@@ -30,9 +30,9 @@ class SplashController extends GetxController {
     var user = await _loginRepositories.getUserLocal();
     if (user.accessToken != null) {
       _timer?.cancel(); // Stop checking once logged in
-      Get.offAllNamed(Route_App.home);
+      Get.offAllNamed(Route_App.productView);
     } else {
-      Get.offAllNamed(Route_App.home);
+      Get.offAllNamed(Route_App.productView);
     }
   }
 }

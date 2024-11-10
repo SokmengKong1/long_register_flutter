@@ -1,9 +1,9 @@
 class PostBaseResponse {
   PostBaseResponse({
-      this.code, 
-      this.message, 
-      this.messageKh, 
-      this.data,});
+    this.code,
+    this.message,
+    this.messageKh,
+    this.data,});
 
   PostBaseResponse.fromJson(dynamic json) {
     code = json['code'];
@@ -15,7 +15,6 @@ class PostBaseResponse {
   String? message;
   String? messageKh;
   dynamic data;
-
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

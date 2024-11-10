@@ -1,4 +1,4 @@
-class RegisterLogin {
+  class RegisterLogin {
   RegisterLogin({
       this.firstName, 
       this.lastName, 
