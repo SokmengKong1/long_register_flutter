@@ -5,7 +5,7 @@ class CustomInputWidget extends StatelessWidget {
   TextEditingController controller;
   String? hintText, labelText;
   Icon? prefixIcon, suffixIcon;
-  CustomInputWidget(
+    CustomInputWidget(
       {super.key,
       required this.controller,
       this.labelText,

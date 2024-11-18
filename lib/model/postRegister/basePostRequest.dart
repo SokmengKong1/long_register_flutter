@@ -4,7 +4,8 @@ class BasePostRequest {
     this.page = 1,
     this.userId= 1,
     this.status = "ACT",
-    this.id = 0,});
+    this.id = 0,
+  });
 
   BasePostRequest.fromJson(dynamic json) {
     limit = json['limit'];

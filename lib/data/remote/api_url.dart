@@ -18,5 +18,8 @@ class ApiUrl{
   static const String getAllPostPath = "$baseUrlPostApp/api/app/post/list";
   static const String createPostPath = "$baseUrlPostApp/api/app/post/create";
   static const String imageViewPath = "$baseUrlPostApp/api/public/view/image?filename=";
+  static const String uploadImage = "$baseUrlPostApp/app/public/v1/image/upload";
+
+
 
 }

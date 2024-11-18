@@ -1,5 +1,3 @@
-
-
 import 'package:add_card_shop/model/login/user.dart';
 import 'package:add_card_shop/model/postRegister/post_category.dart';
 

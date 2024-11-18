@@ -1,8 +1,5 @@
-
-import 'package:add_card_shop/model/postRegister/product/create/category.dart';
-
-class PostCategory {
-  PostCategory({
+class Category {
+  Category({
       this.createAt, 
       this.createBy, 
       this.updateAt, 
@@ -12,7 +9,7 @@ class PostCategory {
       this.imageUrl, 
       this.status,});
 
-  PostCategory.fromJson(dynamic json) {
+  Category.fromJson(dynamic json) {
     createAt = json['createAt'];
     createBy = json['createBy'];
     updateAt = json['updateAt'];
@@ -44,16 +41,4 @@ class PostCategory {
     return map;
   }
 
-  Category toCategory() {
-    return Category(
-      createAt: this.createAt,
-      createBy: this.createBy,
-      updateAt: this.updateAt,
-      updateBy: this.updateBy,
-      id: this.id,
-      name: this.name,
-      imageUrl: this.imageUrl,
-      status: this.status,
-    );
-  }
 }

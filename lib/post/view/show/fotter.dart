@@ -1,4 +1,7 @@
 import 'package:add_card_shop/App_route/route_App.dart';
+import 'package:add_card_shop/post/view/show/product_view.dart';
+import 'package:add_card_shop/post/view/show/product_view.dart';
+import 'package:add_card_shop/post/view/show/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -18,13 +21,14 @@ class Footer extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.home, color: Colors.white),
               onPressed: () {
-                // Navigate to home or perform an action
+                Get.toNamed(Route_App.showpost);
               },
             ),
             IconButton(
-              icon: Icon(Icons.favorite, color: Colors.white),
+              icon: Icon(Icons.add, color: Colors.white),
+
               onPressed: () {
-                // Navigate to favorites or perform an action
+                Get.toNamed(Route_App.productView);
               },
             ),
             IconButton(

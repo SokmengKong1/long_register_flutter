@@ -3,4 +3,6 @@ abstract class BaseApiService{
   Future<dynamic> postApi(String url,dynamic requestBody);
   Future<dynamic> loginApi(String url,dynamic requestBody);
   Future<dynamic> register(String url,dynamic requestBody);
+  // Future<dynamic> uploadImage(String url,dynamic requestBody);
+
 }
