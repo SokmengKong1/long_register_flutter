@@ -5,8 +5,8 @@ import 'package:add_card_shop/post/view/register_view.dart';
 import 'package:add_card_shop/post/view/show/create_post/postFormView.dart';
 import 'package:add_card_shop/post/view/show/create_post/post_category_formView.dart';
 import 'package:add_card_shop/post/view/show/product_view.dart';
+import 'package:add_card_shop/post/view/show/show_data/add_CardOn.dart';
 import 'package:add_card_shop/post/view/show/show_data/detail_Cart.dart';
-import 'package:add_card_shop/post/view/show/show_data/from_create.dart';
 import 'package:add_card_shop/post/view/show/show_data/show_Grid.dart';
 import 'package:add_card_shop/view/Add_Card/add_Card.dart';
 import 'package:add_card_shop/view/homeScreen.dart';
@@ -36,6 +36,8 @@ class Route_App{
   static const String detailCart = "/post/detail";
   static const String fromCreate = "/post/fromCreate/view";
   static const String postManageCreateCategoryPath = "/post/manage/category/create";
+  static const String searchPageInfo = "/Search/pageInfo";
+  static const String addCardOn  = "/AddCardON";
   // static const String register_O_view = "/post/login/register";
 
 }
@@ -88,12 +90,16 @@ class routeApp{
         page: () => DetailCart(),
         transition: Transition.rightToLeft),
     GetPage(
-        name: Route_App.fromCreate,
-        page: () => FromCreate(),
-        transition: Transition.rightToLeft),
-    GetPage(
         name: Route_App.postManageCreateCategoryPath,
         page: () => PostFormView(),
         transition: Transition.rightToLeft),
+    GetPage(
+        name: Route_App.addCardOn,
+        page: () => AddCardon(),
+        transition: Transition.rightToLeft),
+    // GetPage(
+    //     name: Route_App.searchPageInfo,
+    //     page: () => SearchPage(),
+    //     transition: Transition.leftToRight),
   ];
 }

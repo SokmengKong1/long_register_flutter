@@ -9,18 +9,18 @@ class ShowGridView extends GetxController {
   var categoriesList = <PostResponse>[].obs; // Observable list for the grid data
   var loading = false.obs;
 
+
+  PostResponse? postResponse;
   final _repositoriesAll = RepositoriesAll(); // Repository instance
 
   // Method to get all data (with optional refresh flag)
   Future<void> getAllData({bool isRefresh = false}) async {
     try {
       loading(true);
-
       if (isRefresh) {
         // Clear the list if refreshing
         categoriesList.clear();
       }
-
       var request = PostBodyRequest();
       var response = await _repositoriesAll.getAllPosts(request);
       response.data.forEach((data) {
@@ -36,4 +36,6 @@ class ShowGridView extends GetxController {
   Future<void> onRefresh() async {
     await getAllData(isRefresh: true); // Trigger refresh logic
   }
+
+
 }

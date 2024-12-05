@@ -147,20 +147,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:add_card_shop/App_route/route_App.dart';
 import 'package:add_card_shop/data/remote/api_url.dart';
+import 'package:add_card_shop/data/remote/refreshTokenRequest.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
-
 import '../app_exception.dart';
 import 'base_url_app.dart';
 import 'package:flutter/material.dart';
-
 import 'package:add_card_shop/model/login/login_rep.dart';
-
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -168,7 +165,6 @@ class NetworkUrlApp implements BaseApiService {
   @override
   Future<dynamic> getApi(String url) async {
     dynamic responseJson;
-
     try {
       var response = await http.get(Uri.parse(url)).timeout(
           Duration(seconds: 20));
@@ -180,8 +176,8 @@ class NetworkUrlApp implements BaseApiService {
         case 500:
           throw InternetServerException();
         default:
-          throw Exception(
-              "Unexpected error. Status Code: ${response.statusCode}");
+          // throw Exception(
+          //     "Unexpected error. Status Code: ${response.statusCode}");
       }
     } on SocketException {
       throw NoInternetConnectionException();
@@ -195,7 +191,6 @@ class NetworkUrlApp implements BaseApiService {
   @override
   Future<dynamic> postApi(String url, dynamic requestBody) async {
     dynamic responseJson;
-
     try {
       var storage = GetStorage();
       var user = LoginRep.fromJson(storage.read("USER_KEY"));
@@ -214,9 +209,14 @@ class NetworkUrlApp implements BaseApiService {
           responseJson = jsonDecode(response.body);
           break;
         case 401:
-          throw UnAuthorization();
+          if(await refreshTokenApi() == true){
+            print("retry");
+          }else{
+            print("Logout ");
+          }
         case 500:
           throw InternetServerException();
+          print("URL $url");
         default:
           throw Exception(
               "Unexpected error. Status Code: ${response.statusCode}");
@@ -229,16 +229,25 @@ class NetworkUrlApp implements BaseApiService {
 
     return responseJson;
   }
-
   @override
   Future<dynamic> loginApi(String url, dynamic requestBody) async {
     dynamic responseJson;
-
     try {
+      var storage = GetStorage();
+      var userData = storage.read("USER_KEY"); // Read user data from stor
+      var token = "";
+      if (userData != null) {
+        var user = LoginRep.fromJson(userData); // Parse only if not null
+        token = user.accessToken ?? ""; // Safely access accessToken
+        print("$storage.read('USER_KEY')"); // Debugging log
+
+      }
+
+
       var headers = {
         "Content-Type": "application/json",
+        "Authorization": "Bearer $token", // Add token if needed
       };
-
 
       var response = await http
           .post(Uri.parse(url), headers: headers, body: jsonEncode(requestBody))
@@ -247,16 +256,19 @@ class NetworkUrlApp implements BaseApiService {
       switch (response.statusCode) {
         case 200:
           responseJson = jsonDecode(response.body);
+
           // Assuming your response contains `accessToken` and `refreshToken`
           var accessToken = responseJson['accessToken'];
           var refreshToken = responseJson['refreshToken'];
 
-          // Save the tokens to local storage
-          var storage = GetStorage();
-          storage.write("USER_KEY", {
-            'accessToken': accessToken,
-            'refreshToken': refreshToken,
-          });
+          if (accessToken != null && refreshToken != null) {
+            storage.write("USER_KEY", {
+              'accessToken': accessToken,
+              'refreshToken': refreshToken,
+            });
+          } else {
+            throw Exception("Missing tokens in response.");
+          }
 
           break;
         case 401:
@@ -271,12 +283,15 @@ class NetworkUrlApp implements BaseApiService {
       throw InternetServerException();
     } on TimeoutException {
       throw RequestTimeout();
-    } catch (e) {
-      print("Error during login: $e");
     }
+    // catch (e) {
+    //   print("Error during login: $e");
+    //   throw Exception("An error occurred during login: $e");
+    // }
 
     return responseJson;
   }
+
 
 
   @override
@@ -329,7 +344,8 @@ class NetworkUrlApp implements BaseApiService {
     }
   }
 
-  Future<Map<String, String>?> refreshTokenApi() async {
+
+  Future<Map<String, String>?> refreshTokenApis() async {
     try {
       // Retrieve the stored refresh token
       var storage = GetStorage();
@@ -455,9 +471,6 @@ class NetworkUrlApp implements BaseApiService {
   }
 
 
-
-
-
   Future<Map<String, dynamic>> uploadImage(File image) async {
     var storage = GetStorage();
     final url = Uri.parse(ApiUrl.uploadImage);
@@ -497,7 +510,7 @@ class NetworkUrlApp implements BaseApiService {
         case 401:
           if (await refreshTokenApi() == true) {
             print("ON RETRY REFRESH");
-            responseJson = await refreshUploadImage(image);
+            //responseJson = await refreshUploadImage(image);
 
           } else {
             storage.remove("USER_KEY");
@@ -515,134 +528,6 @@ class NetworkUrlApp implements BaseApiService {
 
     return responseJson;
   }
-
-
-  Future<Map<String, dynamic>> refreshUploadImage(File image) async {
-    var storage = GetStorage();
-    final url = Uri.parse(ApiUrl.uploadImage);
-    // Map<String, dynamic> responseJson;
-    dynamic responseJson;
-
-    try {
-      // Create a multipart request
-      var request = http.MultipartRequest("POST", url);
-
-      // Attach the image file as a multipart file
-      final mimeTypeData = lookupMimeType(image.path)!.split('/'); // Get mime type
-      request.files.add(
-        http.MultipartFile(
-          'File',
-          image.readAsBytes().asStream(),
-          image.lengthSync(),
-          filename: image.path.split('/').last,
-          contentType: MediaType(mimeTypeData[0], mimeTypeData[1]),
-        ),
-      );
-
-      // Retrieve and set the authorization token
-      var user = LoginRep.fromJson(storage.read("USER_KEY"));
-      var token = user.accessToken ?? "";
-      request.headers['Authorization'] = 'Bearer $token';
-      request.headers['Cache-Control'] = 'no-cache';
-      request.headers['Accept'] = '*/*';
-
-      // Send the request
-      final response = await request.send();
-      final responseBody = await response.stream.bytesToString();
-
-      switch(response.statusCode){
-        case 200:
-          responseJson = jsonDecode(responseBody);
-          print("Image uploaded successfully2: ${responseJson["data"]['data']}");
-        case 401:
-          storage.remove("USER_KEY");
-          Get.offAllNamed(Route_App.postSplash);
-        case 500:
-          throw InternetServerException();
-        default:
-          throw Exception("Failed to upload image");
-      }
-    } catch (e) {
-      print("Image upload failed: $e");
-      throw Exception("Image upload failed: $e");
-    }
-
-    return responseJson;
-  }
-
-
-
-
-
-  Future refreshTokenUploadImage(File image) async {
-    final url = Uri.parse(ApiUrl.uploadImage);
-    print("REFRESH TOKEN");
-    dynamic responseJson;
-    try {
-      var storage = GetStorage();
-      var user = LoginRep.fromJson(storage.read("USER_KEY"));
-      var token = "";
-      if (user.refreshToken != null) {
-        token = user.accessToken ?? "";
-      }
-      try {
-        // Create a multipart request
-        var request = http.MultipartRequest("POST", url);
-
-        // Attach the image file as a multipart file
-        final mimeTypeData = lookupMimeType(image.path)!.split('/'); // Get mime type
-        request.files.add(
-          http.MultipartFile(
-            'File',
-            image.readAsBytes().asStream(),
-            image.lengthSync(),
-            filename: image.path.split('/').last,
-            contentType: MediaType(mimeTypeData[0], mimeTypeData[1]),
-          ),
-        );
-
-        // Retrieve and set the authorization token
-        var user = LoginRep.fromJson(storage.read("USER_KEY"));
-        var token = user.accessToken ?? "";
-        request.headers['Authorization'] = 'Bearer $token';
-        request.headers['Cache-Control'] = 'no-cache';
-        request.headers['Accept'] = '*/*';
-
-        // Send the request
-        final response = await request.send();
-        final responseBody = await response.stream.bytesToString();
-
-
-        switch (response.statusCode) {
-          case 200:
-            responseJson = responseBody;
-            print("REFRESH API CODE 200");
-        // break;
-          case 401:
-            print("REFRESH API CODE 401");
-            // if (await refreshTokenApi() == true) {
-            //   print("ON RETRY REFRESH");
-            // } else {
-            storage.remove("USER_KEY");
-            Get.offAllNamed(Route_App.postSplash);
-        // }
-          case 500:
-            throw InternetServerException();
-        }
-      } catch (e) {
-        print("Image upload failed: $e");
-        throw Exception("Image upload failed: $e");
-      }
-    } on SocketException {
-      throw NoInternetConnectionException();
-    } on TimeoutException {
-      throw RequestTimeout();
-    }
-    return responseJson;
-  }
-
-
-
   @override
   Future postApiUploadImage(String url, File imageFile) async {
     dynamic responseJson;
@@ -712,13 +597,73 @@ class NetworkUrlApp implements BaseApiService {
   }
 
 
+  Future<bool> refreshTokenApi() async {
+    try {
+      var headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+      var storage = GetStorage();
 
+      // Retrieve and parse the stored `LoginResponse`
+      var savedLoginResponse = LoginRep.fromJson(storage.read("USER_KEY"));
+      print("USER accessToken: ${savedLoginResponse.accessToken}");
+
+      // Prepare the refresh token request
+      var refreshTokenRequest = RefreshTokenRequest(refreshToken: savedLoginResponse.refreshToken);
+      //var refreshTokenRequest = LoginRep.fromJson()
+
+      // Send the HTTP POST request to refresh the token
+      var response = await http
+          .post(
+        Uri.parse(ApiUrl.postRefreshToken),
+        headers: headers,
+        body: jsonEncode(refreshTokenRequest),
+      )
+          .timeout(const Duration(seconds: 60));
+
+      print("Response body: ${response.body}");
+
+      switch (response.statusCode) {
+        case 200:
+          print("CODE 200: Success");
+          // Decode the JSON response
+          var responseJson = jsonDecode(response.body);
+          // Deserialize the response JSON into `LoginResponse`
+          var updatedLoginResponse = LoginRep.fromJson(responseJson);
+          // Store the updated `LoginResponse` in storage
+          storage.write("USER_KEY", updatedLoginResponse.toJson());
+
+          print("New access token stored, returning true");
+          return true; // Token refresh successful
+        case 401:
+          print("Unauthorized (401), returning false");
+          storage.remove("USER_KEY");
+          Get.offAllNamed(Route_App.postSplash);
+          return false; // Unauthorized
+        case 403:
+          print("Unauthorized (401), returning false");
+          storage.remove("USER_KEY");
+          Get.offAllNamed(Route_App.postSplash);
+          return false; // Unauthorized
+        case 500:
+          throw InternetServerException(); // Server error
+
+        default:
+          print("Unexpected status code: ${response.statusCode}");
+          return false; // Handle unexpected status codes
+      }
+    } on SocketException {
+      throw NoInternetConnectionException();
+    } on TimeoutException {
+      throw RefreshTokenRequest();
+    }
+  }
 
 
   Future<bool> _handleTokenRefresh(String url, dynamic requestBody) async {
     try {
-      Map<String, String>? response = await refreshTokenApi();
-      if (response != null && response['status'] == 'success') {
+      bool tokenRefreshed = await refreshTokenApi(); // Ensure this returns a bool
+      if (tokenRefreshed) {
         print("Token refreshed successfully, retrying POST request");
         return true;
       } else {
@@ -726,13 +671,10 @@ class NetworkUrlApp implements BaseApiService {
         return false;
       }
     } catch (e) {
-      print("Error during token refresh: $e");
+      print("Error durisng token refresh: $e");
       return false;
     }
   }
-
-
-
 
 
 

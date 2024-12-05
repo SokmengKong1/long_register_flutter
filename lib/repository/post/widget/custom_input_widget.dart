@@ -21,8 +21,8 @@ class CustomInputWidget extends StatelessWidget {
         decoration: InputDecoration(
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
-            hintText: "username",
-            labelText: "username"),
+            hintText: hintText,
+            labelText: labelText),
       ),
     );
   }

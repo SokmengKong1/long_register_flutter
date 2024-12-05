@@ -52,6 +52,8 @@ dependencies:
   shared_preferences: ^2.3.2
   flutter_keyboard_visibility: ^6.0.0
   http_parser: ^4.0.0
+  easy_localization: ^3.0.7
+
 
 
 
@@ -80,7 +82,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - asset/download.png
+    - asset/company.jpg
+    - asset/images/icons/english.png
+    - asset/images/icons/khmer.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

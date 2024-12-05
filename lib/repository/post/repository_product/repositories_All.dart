@@ -18,13 +18,23 @@ class RepositoriesAll {
      var response  = await apiService.postApi(ApiUrl.getAllPostPath+req.id.toString(), req.toJson());
      return PostBaseResponse.fromJson(response);
    }
+
+   // Future<PostBaseResponse> getPostById(BasePostRequest req) async{
+   //   var response = await apiService.postApi(ApiUrl.getAllPostPath+req.id.toString(), req.toJson());
+   //   return PostBaseResponse.fromJson(response);
+   // }
+   // Future<PostResponse> addCard(PostResponse req) async {
+   //   var response = await apiService.postApi(ApiUrl.getAllPostPath, req.toJson());
+   //   return PostResponse.fromJson(response);
+   // }
+
+
    Future<PostBaseResponse> getAllPostCategories(BasePostRequest req) async{
-     var response = await apiService.postApi(ApiUrl.createPostPath, req.toJson());
+     var response = await apiService.postApi(ApiUrl.postCategory, req.toJson());
      return PostBaseResponse.fromJson(response);
    }
 
   Future<PostBaseResponse> createPost(PostCreate req) async {
-    // Convert PostCreate with nested Category to JSON
     var response = await apiService.postApi(ApiUrl.createPostPath, req.toJson());
     return PostBaseResponse.fromJson(response);
   }

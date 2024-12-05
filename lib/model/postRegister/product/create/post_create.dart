@@ -136,6 +136,8 @@
 //   }
 // }
 //
+import 'package:add_card_shop/model/login/user.dart';
+
 import 'category.dart';
 class PostCreate {
   PostCreate({
@@ -149,7 +151,9 @@ class PostCreate {
     this.description,
     this.totalView,
     this.status,
-    this.category,
+      this.category,
+    this.user,
+
   });
 
   PostCreate.fromJson(dynamic json) {
@@ -164,6 +168,7 @@ class PostCreate {
     totalView = json['totalView'];
     status = json['status'];
     category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   String? createAt;
@@ -177,6 +182,9 @@ class PostCreate {
   int? totalView;
   String? status;
   Category? category;
+  User? user;
+  get rating => null;
+
 
   // Method to set the base64 encoded image
   void setBase64Image(String base64Image) {
@@ -197,6 +205,9 @@ class PostCreate {
     map['status'] = status;
     if (category != null) {
       map['category'] = category?.toJson();
+    }
+    if (user != null) {
+      map['user'] = user?.toJson();
     }
     return map;
   }

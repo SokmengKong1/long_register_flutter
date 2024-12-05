@@ -17,6 +17,7 @@ class LoginRepositories{
   Future<void> saveUserLocal(LoginRep data) async {
     var storage = GetStorage();
     storage.write("USER_KEY", data.toJson());
+    print("Saved USER_KEY data: ${storage.read("USER_KEY")}");
   }
   Future<void> removeUserLocal() async {
     var storage = GetStorage();

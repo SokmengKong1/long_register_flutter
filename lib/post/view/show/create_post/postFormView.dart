@@ -15,14 +15,15 @@ class PostFormView extends StatefulWidget {
 }
 
 class _PostFormViewState extends State<PostFormView> {
-  final PostCategoryFormViewModel viewModel = Get.put(PostCategoryFormViewModel());
+  final PostCategoryFormViewModel viewModel =
+      Get.put(PostCategoryFormViewModel());
   final PostCategoryViewModel categoryViewModel =
-  Get.put(PostCategoryViewModel());
+      Get.put(PostCategoryViewModel());
 
   bool _isExpanded = false;
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
-  String _selectedStatus = "Public"; // Default value for visibility dropdown
+  // String _selectedStatus = "Public"; // Default value for visibility dropdown
   String _selectedCategory = "Category"; // Default value for category
   var fileName = "";
 
@@ -56,19 +57,19 @@ class _PostFormViewState extends State<PostFormView> {
         border: Border.all(color: Colors.grey),
       ),
       child: imageUrl != null
-      // If imageUrl is set, display the image from the network
+          // If imageUrl is set, display the image from the network
           ? Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-      )
+              imageUrl,
+              fit: BoxFit.cover,
+            )
           : viewModel.selectedImage != null
-      // If a new image has been picked, display it
-          ? Image.file(
-        viewModel.selectedImage!,
-        fit: BoxFit.cover,
-      )
-          : Icon(Icons.image,
-          size: 50, color: Colors.grey), // Placeholder icon
+              // If a new image has been picked, display it
+              ? Image.file(
+                  viewModel.selectedImage!,
+                  fit: BoxFit.cover,
+                )
+              : Icon(Icons.image,
+                  size: 50, color: Colors.grey), // Placeholder icon
     );
   }
 
@@ -111,16 +112,6 @@ class _PostFormViewState extends State<PostFormView> {
               style: TextStyle(color: Colors.white),
             ),
           ),
-          // TextButton(
-          //   onPressed: () {
-          //     viewModel.uploadImage(_selectedImage!); // Call create post method
-          //     // Get.offAllNamed(RouteName.postManagePath);
-          //   },
-          //   child: Text(
-          //     "Upload",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ),
         ],
       ),
       body: SafeArea(
@@ -135,7 +126,7 @@ class _PostFormViewState extends State<PostFormView> {
                   children: [
                     Container(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Row(
                         children: [
                           // CircleAvatar(
@@ -224,24 +215,24 @@ class _PostFormViewState extends State<PostFormView> {
                         children: [
                           // Check if editing mode and display the existing image if available
                           viewModel.postCreate.value.id != 0 &&
-                              _selectedImage == null
+                                  _selectedImage == null
                               ? CachedNetworkImage(
-                            imageUrl:
-                            "${ApiUrl.imageViewPath}${viewModel.imageFilePath}",
-                            width: double.infinity,
-                            height: 200,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) =>
-                                SizedBox.shrink(),
-                          )
+                                  imageUrl:
+                                      "${ApiUrl.imageViewPath}${viewModel.imageFilePath}",
+                                  width: double.infinity,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      SizedBox.shrink(),
+                                )
                               : (_selectedImage != null
-                              ? Image.file(
-                            _selectedImage!,
-                            width: double.infinity,
-                            height: 200,
-                            fit: BoxFit.cover,
-                          )
-                              : Container()), // Placeholder if no image is picked in create mode
+                                  ? Image.file(
+                                      _selectedImage!,
+                                      width: double.infinity,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container()), // Placeholder if no image is picked in create mode
                           // "Clear Image" Button
                           if (_selectedImage != null ||
                               (viewModel.postCreate.value.id != 0 &&
@@ -320,7 +311,7 @@ class _PostFormViewState extends State<PostFormView> {
                   ),
                   if (!_isExpanded)
                     Padding(
-                      padding: const EdgeInsets.only(left: 16,right: 16),
+                      padding: const EdgeInsets.only(left: 16, right: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -342,14 +333,14 @@ class _PostFormViewState extends State<PostFormView> {
                         physics: BouncingScrollPhysics(),
                         children: [
                           Obx(() => _buildOptionItem(
-                            Icons.category,
-                            viewModel.postCreate.value.id != 0
-                                ? viewModel.selectedCategory.value?.name ??
-                                "Select Category"
-                                : _selectedCategory,
-                            Colors.blue,
-                            _showCategoryPicker,
-                          )),
+                                Icons.category,
+                                viewModel.postCreate.value.id != 0
+                                    ? viewModel.selectedCategory.value?.name ??
+                                        "Select Category"
+                                    : _selectedCategory,
+                                Colors.blue,
+                                _showCategoryPicker,
+                              )),
                           _buildOptionItem(Icons.photo, "Photo/video",
                               Colors.green, _pickImage),
                           _buildOptionItem(
@@ -409,7 +400,7 @@ class _PostFormViewState extends State<PostFormView> {
         child: DropdownButton<String>(
           value: options.contains(selectedValue) ? selectedValue : null,
           hint:
-          Text(title, style: TextStyle(color: Colors.white, fontSize: 12)),
+              Text(title, style: TextStyle(color: Colors.white, fontSize: 12)),
           dropdownColor: Colors.blue,
           icon: Icon(Icons.arrow_drop_down, color: Colors.white, size: 16),
           underline: SizedBox(),

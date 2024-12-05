@@ -23,6 +23,8 @@ class ProductAll extends GetxController {
   var username = ''.obs;
   var email = ''.obs;
   var phoneNumber = ''.obs;
+  var profile = ''.obs;
+  var userRole = ''.obs;
 
   @override
   void onInit() {
@@ -39,6 +41,10 @@ class ProductAll extends GetxController {
       username.value = user['username'] ?? "No username"; // Update username observable
       email.value = user['email'] ?? "No Email";
       phoneNumber.value = user['phoneNumber'] ?? "No Phone";
+      profile.value = user['profile'] ?? "No Phone";
+      userRole.value = user['roles']?.first['name'] ?? "No Role";
+      print("USER: ${userRole.value}");
+
     }
   }
 
@@ -61,8 +67,29 @@ class ProductAll extends GetxController {
       var userData = storage.read("USER_KEY");
       print("USER EXIST: $userData");
       var user = userData['user'];
-      //print("Username: ${user['email']}");
+      print("Username: ${user['email']}");
+       userRole.value = user['roles']?.first['name'] ?? "No Role";
+      // if (userRole.value == "ROLE_ADMIN") {
+      //   userRole.value = user['roles']?.first['name'] ?? "No Role";
+      //   print("USERROLE: ${userRole.value}");
+      // }
+      print("USERROLE: ${userRole.value}");
+
     }
+
+
+    _getAllPost() async {
+      if (storage.read("USER_KEY") != null) {
+        var userData = storage.read("USER_KEY");
+        print("USER EXIST: $userData");
+        var user = userData['user'];
+        userRole.value = user['roles']?.first['name'] ?? "No Role";
+
+        print("Username: ${user['email']}");
+        print("USERROLE: ${userRole.value}");
+      }
+    }
+
 
     var request = PostBodyRequest();
     var response = await _repositoriesAll.getAllPosts(request);
