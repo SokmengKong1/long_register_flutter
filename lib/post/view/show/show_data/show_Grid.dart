@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../data/remote/api_url.dart';
+import '../../../../status.dart';
 import '../fotter.dart';
 import '../navbar_view.dart';
 
@@ -15,9 +16,35 @@ class ShowPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavbarView(),
-      body: Obx(() {
+      body:
+      Obx(() {
+        // if (_showGridView.LoadingRequestAllCategoryStatus.value == Status.loading) {
+        //   return const Center(child: CircularProgressIndicator());
+        // }
+        // if (_showGridView.LoadingRequestAllCategoryStatus.value == Status.error) {
+        //   return Center(
+        //     child: Column(
+        //       mainAxisSize: MainAxisSize.min,
+        //       children: [
+        //         const Text("Error occurred!"),
+        //         const SizedBox(height: 10),
+        //         ElevatedButton(
+        //           onPressed: () {
+        //             _showGridView.refreshData();
+        //           },
+        //           child: const Text("Retry"),
+        //         ),
+        //       ],
+        //     ),
+        //   );
+        // }
+        //
+        // // No categories case
+        // if (_showGridView.categoriesList.isEmpty) {
+        //   return const Center(child: Text("No categories available"));
+        // }
         return RefreshIndicator(
-          onRefresh: _showGridView.onRefresh, // Call _onRefresh from ShowGridView
+          onRefresh: _showGridView.refreshData, // Call _onRefresh from ShowGridView
           child: _showGridView.loading.value ? Center(child: CircularProgressIndicator())
               : GridView.builder(
             itemCount: _showGridView.categoriesList.length,

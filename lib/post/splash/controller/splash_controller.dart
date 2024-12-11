@@ -26,13 +26,31 @@ class SplashController extends GetxController {
     });
   }
 
+  // Future<void> checkUserLogin() async {
+  //   var user = await _loginRepositories.getUserLocal();
+  //   if (user.accessToken != null) {
+  //     _timer?.cancel(); // Stop checking once logged in
+  //     Get.offAllNamed(Route_App.productView);
+  //   } else {
+  //     Get.offAllNamed(Route_App.productView);
+  //   }
+  // }
+
+
   Future<void> checkUserLogin() async {
-    var user = await _loginRepositories.getUserLocal();
-    if (user.accessToken != null) {
-      _timer?.cancel(); // Stop checking once logged in
-      Get.offAllNamed(Route_App.productView);
-    } else {
-      Get.offAllNamed(Route_App.productView);
+    try {
+      var user = await _loginRepositories.getUserLocal(); // Retrieve the user data
+      if (user.accessToken != null && user.accessToken!.isNotEmpty) {
+        _timer?.cancel(); // Stop checking if the user is logged in
+        Get.offAllNamed(Route_App.productView); // Navigate to the product view
+      } else {
+        Get.offAllNamed(Route_App.loginView); // Navigate to the login view
+      }
+    } catch (e) {
+      print("Error checking user login: $e");
+      // Handle any unexpected errors and navigate to login as a fallback
+      Get.offAllNamed(Route_App.loginView);
     }
   }
+
 }

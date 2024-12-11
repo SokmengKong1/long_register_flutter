@@ -68,29 +68,9 @@ class ProductAll extends GetxController {
       print("USER EXIST: $userData");
       var user = userData['user'];
       print("Username: ${user['email']}");
-       userRole.value = user['roles']?.first['name'] ?? "No Role";
-      // if (userRole.value == "ROLE_ADMIN") {
-      //   userRole.value = user['roles']?.first['name'] ?? "No Role";
-      //   print("USERROLE: ${userRole.value}");
-      // }
-      print("USERROLE: ${userRole.value}");
+
 
     }
-
-
-    _getAllPost() async {
-      if (storage.read("USER_KEY") != null) {
-        var userData = storage.read("USER_KEY");
-        print("USER EXIST: $userData");
-        var user = userData['user'];
-        userRole.value = user['roles']?.first['name'] ?? "No Role";
-
-        print("Username: ${user['email']}");
-        print("USERROLE: ${userRole.value}");
-      }
-    }
-
-
     var request = PostBodyRequest();
     var response = await _repositoriesAll.getAllPosts(request);
     if (response.data != null) {

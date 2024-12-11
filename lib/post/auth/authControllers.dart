@@ -64,7 +64,8 @@ class AuthControllers extends GetxController {
       await _loginReposoitory.saveUserLocal(response);
 
       // Navigate to the post-splash screen
-      Get.offAllNamed(Route_App.postSplash);
+      //Get.offAllNamed(Route_App.postSplash);
+      Get.offAllNamed(Route_App.productView);
     } on UnAuthorization {
       // Show error for incorrect credentials
       Get.snackbar("Error", "Your username or password is incorrect!");

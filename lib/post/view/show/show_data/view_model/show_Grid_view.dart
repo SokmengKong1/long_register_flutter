@@ -5,9 +5,16 @@ import '../../../../../model/postRegister/product/post_body_request.dart';
 import '../../../../../model/postRegister/product/post_response.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../../../../../status.dart';
+
 class ShowGridView extends GetxController {
   var categoriesList = <PostResponse>[].obs; // Observable list for the grid data
   var loading = false.obs;
+  var LoadingRequestAllCategoryStatus = Status.loading.obs;
+
+  void setLoadingRequestAllCategory(Status value) =>
+      LoadingRequestAllCategoryStatus.value = value;
+
 
 
   PostResponse? postResponse;
@@ -33,9 +40,17 @@ class ShowGridView extends GetxController {
     }
   }
   // Method to trigger refresh
-  Future<void> onRefresh() async {
-    await getAllData(isRefresh: true); // Trigger refresh logic
+  Future<void> refreshData() async {
+    LoadingRequestAllCategoryStatus.value = Status.loading;
+    await getAllData();
+    //await getAllData(isRefresh: true); // Trigger refresh logic
+    try{
+      await getAllData();
+      LoadingRequestAllCategoryStatus.value = Status.completed;
+    }catch (e) {
+      LoadingRequestAllCategoryStatus.value = Status.error;
+      print("Error refreshing data: $e");
+    }
   }
-
 
 }

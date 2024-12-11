@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-       initialRoute: Route_App.loginView,
+        //initialRoute: Route_App.loginView,
       //initialRoute: Route_App.home,
-      //initialRoute: Route_App.searchPageInfo,
+      initialRoute: Route_App.postSplash,
       getPages: routeApp.appRoute(),
 
     );

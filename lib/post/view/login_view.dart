@@ -130,6 +130,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final storage = GetStorage();
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:add_card_shop/model/postRegister/product/post_response.dart';
 import '../../../../data/remote/api_url.dart';
+import '../../../widget/CartIconButton .dart';
 import 'add_CardOn.dart';
 
 class DetailCart extends StatelessWidget {
@@ -21,17 +22,13 @@ class DetailCart extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.teal,
         actions: [
+          // The InkWell widget wraps the CartIconButton
           InkWell(
-            onTap: (){
+            onTap: () {
+              // This triggers the navigation to the route defined in Route_App.addCardOn
               Get.toNamed(Route_App.addCardOn);
             },
-            child: IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                // You can define your action here, like navigating to the cart screen
-                Get.to(AddCardon());  // Navigate to the cart page (AddCardon in your case)
-              },
-            ),
+            child: CartIconButton(), // The custom CartIconButton widget
           ),
         ],
       ),
@@ -170,21 +167,7 @@ class DetailCart extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // ElevatedButton.icon(
-                  //   onPressed: () {
-                  //    // detailView.cartProduct.length;
-                  //     detailView.cartProduct.add(showData);
-                  //     //detailView.addToCart;
-                  //   },
-                  //   icon: const Icon(Icons.shopping_bag_rounded, color: Colors.white),
-                  //   label: const Text("ADD"),
-                  //   style: ElevatedButton.styleFrom(
-                  //     backgroundColor: Colors.blue,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //   ),
-                  // ),
+
                   ElevatedButton(
                     onPressed: () {
                       // Adds product as a new cart item each time, even if it already exists in the cart
@@ -199,42 +182,6 @@ class DetailCart extends StatelessWidget {
                     },
                     child: const Text("Add to Cart"),
                   ),
-                  // ElevatedButton.icon(
-                  //   onPressed: () {
-                  //     // Ensure the current postResponse is passed to the addToCart method
-                  //     if (detailView.postResponse.value != null) {
-                  //        detailView.addToCart(detailView.postResponse.value);  // Pass postResponse as argument
-                  //       //Get.to(AddCardon(), arguments: postResponse);
-                  //
-                  //       // Optional: Display feedback to the user
-                  //       Get.snackbar(
-                  //         "Cart",
-                  //         "Product added to cart!",
-                  //         snackPosition: SnackPosition.BOTTOM,
-                  //         backgroundColor: Colors.teal,
-                  //         colorText: Colors.white,
-                  //       );
-                  //     }
-                  //     else {
-                  //       // Handle case where postResponse is null (optional)
-                  //       Get.snackbar(
-                  //         "Error",
-                  //         "Product details are unavailable!",
-                  //         snackPosition: SnackPosition.BOTTOM,
-                  //         backgroundColor: Colors.red,
-                  //         colorText: Colors.white,
-                  //       );
-                  //     }
-                  //   },
-                  //   icon: const Icon(Icons.shopping_bag_rounded, color: Colors.white),
-                  //   label: const Text("ADD"),
-                  //   style: ElevatedButton.styleFrom(
-                  //     backgroundColor: Colors.teal,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //   ),
-                  // ),
                   ElevatedButton.icon(
                     onPressed: () {
                       if (detailView.postResponse.value != null) {
@@ -268,9 +215,6 @@ class DetailCart extends StatelessWidget {
                       ),
                     ),
                   ),
-
-
-
                   OutlinedButton.icon(
                     onPressed: () {
                       // Delete button functionality
